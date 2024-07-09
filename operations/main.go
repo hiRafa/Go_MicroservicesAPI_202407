@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	associationspb "associations/associationspb"
+	operationspb "operations/operationspb"
 )
 
 var DB *sql.DB
@@ -33,7 +33,7 @@ func main() {
 	fmt.Println("Tables created successfully!")
 
 	// Initialize the gRPC server
-	listener, err := net.Listen("tcp", ":50051")
+	listener, err := net.Listen("tcp", ":50061")
 	if err != nil {
 		log.Fatalf("Failed to listen: %v", err)
 	}
@@ -42,15 +42,15 @@ func main() {
 	server := grpc.NewServer()
 
 	// Initialize an instance of your gRPC service implementation
-	AssociationsDBModel := &AssociationsDBModel{db: db}
+	OperationsDBModel := &OperationsDBModel{db: db}
 
 	// Register the UserService server with the gRPC server
-	associationspb.RegisterAssociationsServiceServer(server, AssociationsDBModel)
+	operationspb.RegisterOperationsServiceServer(server, OperationsDBModel)
 
 	// Register reflection service on gRPC server
 	reflection.Register(server)
 
-	log.Println("gRPC server running on port 50051")
+	log.Println("gRPC server running on port 50061")
 	if err := server.Serve(listener); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}
@@ -59,17 +59,17 @@ func main() {
 }
 
 func createTables() error {
-	createAssociationsTable := `
-        CREATE TABLE IF NOT EXISTS associations (
+	createOperationsTable := `
+        CREATE TABLE IF NOT EXISTS operations (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             short_name TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE
         )
     `
-	_, err := DB.Exec(createAssociationsTable)
+	_, err := DB.Exec(createOperationsTable)
 	if err != nil {
-		return fmt.Errorf("could not create associations table: %v", err)
+		return fmt.Errorf("could not create operations table: %v", err)
 	}
 
 	fmt.Println("Tables created successfully!")

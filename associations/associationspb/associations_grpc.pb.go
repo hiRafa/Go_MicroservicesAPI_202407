@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.4.0
 // - protoc             v5.27.2
-// source: associations/associations.proto
+// source: associations.proto
 
-package associations
+package associationspb
 
 import (
 	context "context"
@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	AssociationsService_GetAssociationsById_FullMethodName = "/main.AssociationsService/GetAssociationsById"
-	AssociationsService_CreateAssociations_FullMethodName  = "/main.AssociationsService/CreateAssociations"
+	AssociationsService_GetAssociationsById_FullMethodName = "/associations.AssociationsService/GetAssociationsById"
+	AssociationsService_CreateAssociations_FullMethodName  = "/associations.AssociationsService/CreateAssociations"
 )
 
 // AssociationsServiceClient is the client API for AssociationsService service.
@@ -131,7 +131,7 @@ func _AssociationsService_CreateAssociations_Handler(srv interface{}, ctx contex
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var AssociationsService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "main.AssociationsService",
+	ServiceName: "associations.AssociationsService",
 	HandlerType: (*AssociationsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -144,5 +144,5 @@ var AssociationsService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "associations/associations.proto",
+	Metadata: "associations.proto",
 }

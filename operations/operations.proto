@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package operations;
+
+option go_package = "/operationspb";
+
+service OperationsService {
+    rpc GetOperationsById(OperationsByIdRequest) returns (OperationsResponse);
+    rpc CreateOperations(CreateOperationsRequest) returns (OperationsResponse);
+}
+
+message OperationsByIdRequest {
+    int32 id = 1;
+}
+
+message CreateOperationsRequest {
+    string name = 1;
+    string shortName = 2;
+    string email = 3;
+}
+
+message OperationsResponse {
+    int32 id = 1;
+    string name = 2;
+    string shortName = 3;
+    string email = 4;
+}
